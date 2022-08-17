@@ -6,10 +6,9 @@ const formulario = document.getElementById("formulario")
 const texto = document.getElementById("texto")
 const monto = document.getElementById("monto")
 
-// Obtener transacciones del localstorage
-const localStorageTransacciones = JSON.parse(localStorage.getItem("transacciones"))
+const obtenerTransaccionesLocalStorage = JSON.parse(localStorage.getItem("transacciones"))
 
-let transacciones = localStorage.getItem("transacciones") !== null ? localStorageTransacciones : []
+let transacciones = localStorage.getItem("transacciones") !== null ? obtenerTransaccionesLocalStorage : []
 
 const agregarTransaccion = (e) => {
     e.preventDefault()
@@ -21,7 +20,7 @@ const agregarTransaccion = (e) => {
     )
     } else {
         const transaccion = {
-            id: generarID(),
+            id: generarRandomID(),
             texto: texto.value,
             monto: +monto.value,
         }
@@ -34,9 +33,7 @@ const agregarTransaccion = (e) => {
     }
 }
 
-
-// Generar un ID random
-const generarID = () => {
+const generarRandomID = () => {
     return Math.floor(Math.random() * 100000000)
 }
 
@@ -48,7 +45,7 @@ const agregarTransaccionDOM = (transaccion) => {
     
     const item = document.createElement("li")
 
-  // Agregar clase basado en el signo del monto
+    // Agregar clase basado en el signo del monto
     item.classList.add(transaccion.monto < 0 ? "menos" : "mas")
 
     item.innerHTML = `
